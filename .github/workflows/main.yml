@@ -1,0 +1,42 @@
+name: hxcpp benchmark
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Haxe
+        uses: krdlab/setup-haxe@v1
+        with:
+          haxe-version: 4.3.3
+
+      - name: Install hxcpp
+        run: |
+          haxelib setup ~/haxelib
+          haxelib install hxcpp --quiet
+          haxelib list
+
+      - name: Build benchmark (hxcpp, release)
+        run: |
+          haxe \
+            -cp src \
+            -main Main \
+            -lib hxcpp \
+            -cpp build/cpp \
+            -D analyzer-optimize \
+            -D no-traces \
+            -D HXCPP_M64 \
+            -D HXCPP_OPTIMIZE \
+            -D HXCPP_RELEASE
+
+      - name: Run benchmark
+        run: |
+          ./build/cpp/Main
