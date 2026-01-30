@@ -87,10 +87,10 @@ class Main {
     static inline var GETS_PER_MOD = 6;
 
     static function main() {
-        trace("Warming up...");
+        Sys.println("Warming up...");
         warmup();
 
-        trace("Running benchmarks...");
+        Sys.println("Running benchmarks...");
         benchStringMap();
         benchPercentArray();
     }
@@ -126,7 +126,7 @@ class Main {
         }
 
         var elapsed = Timer.stamp() - start;
-        trace("StringMap time: " + elapsed + "s (sum=" + sum + ")");
+        Sys.println("StringMap time: " + elapsed + "s (sum=" + sum + ")");
     }
 
     // --------------------------------------------------
@@ -156,7 +156,7 @@ class Main {
         }
 
         var elapsed = Timer.stamp() - start;
-        trace("PercentArray time: " + elapsed + "s (sum=" + sum + ")");
+        Sys.println("PercentArray time: " + elapsed + "s (sum=" + sum + ")");
     }
 
     static inline function vec():Vector<Float> {
